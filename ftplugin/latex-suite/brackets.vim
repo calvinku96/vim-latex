@@ -42,6 +42,10 @@ if exists('*Tex_MathBF')
 	finish
 endif
 
+function! Tex_MathBB()
+    return "\<Left>\\mathbb{\<Right>}"
+endfunction
+
 " Tex_MathBF: encloses te previous letter/number in \mathbf{} {{{
 " Description: 
 function! Tex_MathBF()
@@ -114,9 +118,11 @@ function! Tex_PutLeftRight()
 endfunction " }}}
 
 " Provide <plug>'d mapping for easy user customization. {{{
+inoremap <silent> <Plug>Tex_MathBB      <C-r>=Tex_MathBB()<CR>
 inoremap <silent> <Plug>Tex_MathBF      <C-r>=Tex_MathBF()<CR>
 inoremap <silent> <Plug>Tex_MathCal     <C-r>=Tex_MathCal()<CR>
 inoremap <silent> <Plug>Tex_LeftRight   <C-r>=Tex_LeftRight()<CR>
+vnoremap <silent> <Plug>Tex_MathBB		<C-C>`>a}<Esc>`<i\mathbb{<Esc>
 vnoremap <silent> <Plug>Tex_MathBF		<C-C>`>a}<Esc>`<i\mathbf{<Esc>
 vnoremap <silent> <Plug>Tex_MathCal		<C-C>`>a}<Esc>`<i\mathcal{<Esc>
 nnoremap <silent> <Plug>Tex_LeftRight	:call Tex_PutLeftRight()<CR>
@@ -126,9 +132,11 @@ nnoremap <silent> <Plug>Tex_LeftRight	:call Tex_PutLeftRight()<CR>
 function! <SID>Tex_SetBracketingMaps()
 
 	if g:Tex_AdvancedMath == 1
+		call Tex_MakeMap('<M-j>', '<Plug>Tex_MathBB', 'i', '<buffer> <silent>')
 		call Tex_MakeMap('<M-b>', '<Plug>Tex_MathBF', 'i', '<buffer> <silent>')
 		call Tex_MakeMap('<M-c>', '<Plug>Tex_MathCal', 'i', '<buffer> <silent>')
 		call Tex_MakeMap('<M-l>', '<Plug>Tex_LeftRight', 'i', '<buffer> <silent>')
+		call Tex_MakeMap('<M-j>', '<Plug>Tex_MathBB', 'v', '<buffer> <silent>')
 		call Tex_MakeMap('<M-b>', '<Plug>Tex_MathBF', 'v', '<buffer> <silent>')
 		call Tex_MakeMap('<M-c>', '<Plug>Tex_MathCal', 'v', '<buffer> <silent>')
 		call Tex_MakeMap('<M-l>', '<Plug>Tex_LeftRight', 'n', '<buffer> <silent>')

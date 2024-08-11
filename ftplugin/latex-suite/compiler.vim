@@ -620,7 +620,11 @@ function! Tex_CompileMultipleTimes()
 		" changes, we will rerun latex.
 		" We use '\\bibdata' as a check for BibTeX and '\\abx' as a check for biber.
 		if runCount == 0 && Tex_IsPresentInFile('\\bibdata|\\abx', mainFileName_root.'.aux')
+			let bibFlavor = Tex_GetVarValue('Tex_BibtexFlavor')
 			let bibFileName = mainFileName_root.'.bbl'
+			if bibFlavor == 'biber'
+				let bibFileName = mainFileName_root.'.bcf'
+			endif
 
 			let biblinesBefore = Tex_CatFile(bibFileName)
 

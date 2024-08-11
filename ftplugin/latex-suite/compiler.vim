@@ -383,7 +383,7 @@ function! Tex_ForwardSearchLaTeX()
 			" Forward search in sumatra has these arguments (-reuse-instance is optional):
 			" SumatraPDF -reuse-instance "pdfPath" -forward-search "texPath" lineNumber
 			let execString .= Tex_Stringformat('start %s %s -forward-search %s %s', viewer, target_file, sourcefileFull, linenr)
-		endif	
+		endif
 
 	elseif ((has('osx') || has('macunix'))
 				\ && (viewer =~ '\(Skim\|PDFView\|TeXniscope\)'))
@@ -630,7 +630,7 @@ function! Tex_CompileMultipleTimes()
 
 			echomsg "Running '".Tex_GetVarValue('Tex_BibtexFlavor')."' ..."
 			let temp_mp = &mp | let &mp = Tex_GetVarValue('Tex_BibtexFlavor')
-			exec 'silent! make "'.mainFileName_root.'"'
+			exec 'silent! make "'.bibFileName.'"'
 			let &mp = temp_mp
 
 			let biblinesAfter = Tex_CatFile(bibFileName)
